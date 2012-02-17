@@ -6,6 +6,7 @@ describe 'Heroku' do
     Locomotive.config.heroku = {}
     Locomotive::Heroku.connection = nil
     Locomotive::Heroku.app_name = nil
+    Locomotive::Heroku.domains = nil
   end
 
   describe '#connection' do
@@ -33,7 +34,7 @@ describe 'Heroku' do
 
   end
 
-  describe '#application name' do
+  describe '#application' do
 
     it 'raises an exception of no app name has been provided' do
       lambda do
@@ -54,6 +55,18 @@ describe 'Heroku' do
         Locomotive::Heroku.app_name.should == 'locomotive_new'
       end.should_not raise_error
       ENV.delete('APP_NAME')
+    end
+
+  end
+
+  describe '#domains' do
+
+    it 'lists the domains' do
+      puts Locomotive::Heroku.domains.inspect
+    end
+
+    it 'adds a domain' do
+
     end
 
   end
