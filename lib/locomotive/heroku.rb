@@ -10,7 +10,7 @@ module Locomotive
   module Heroku
 
     class << self
-      attr_accessor :connection, :domains
+      attr_accessor :connection, :app_name, :domains
 
       def domains
         if @domains.nil?
@@ -23,14 +23,18 @@ module Locomotive
       def connection
         return @connection if @connection
 
-        raise 'Heroku API key is mandatory' if ENV['HEROKU_API_KEY'].blank? && Locomotive.config.heroku[:api_key].blank?
+        raise 'The Heroku API key is mandatory' if ENV['HEROKU_API_KEY'].blank? && Locomotive.config.heroku[:api_key].blank?
 
         @connection = ::Heroku::API.new(:api_key => ENV['HEROKU_API_KEY'] || Locomotive.config.heroku[:api_key], :mock => ENV['MOCK_HEROKU'].present?)
       end
-    end
 
-    def self.app_name
-      Locomotive.config.heroku[:app_name] ||= ENV['APP_NAME']
+      def app_name
+        return @app_name if @app_name
+
+        raise 'The Heroku application name is mandatory' if ENV['APP_NAME'].blank? && Locomotive.config.heroku[:app_name].blank?
+
+        @app_name = Locomotive.config.heroku[:app_name] ||  ENV['APP_NAME']
+      end
     end
 
     def self.add_domain(name)

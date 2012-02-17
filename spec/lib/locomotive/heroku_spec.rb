@@ -2,12 +2,18 @@ require 'spec_helper'
 
 describe 'Heroku' do
 
+  before(:each) do
+    Locomotive.config.heroku = {}
+    Locomotive::Heroku.connection = nil
+    Locomotive::Heroku.app_name = nil
+  end
+
   describe '#connection' do
 
     it 'raises an exception if no API key has been provided' do
       lambda do
         Locomotive::Heroku.connection
-      end.should raise_error(RuntimeError, 'Heroku API key is mandatory')
+      end.should raise_error(RuntimeError, 'The Heroku API key is mandatory')
     end
 
     it 'accepts the API key from the locomotive config file' do
@@ -27,7 +33,30 @@ describe 'Heroku' do
 
   end
 
+  describe '#application name' do
 
+    it 'raises an exception of no app name has been provided' do
+      lambda do
+        Locomotive::Heroku.app_name
+      end.should raise_error(RuntimeError, 'The Heroku application name is mandatory')
+    end
+
+    it 'accepts the name from the locomotive config file' do
+      Locomotive.config.heroku = { :app_name => 'locomotive' }
+      lambda do
+        Locomotive::Heroku.app_name.should == 'locomotive'
+      end.should_not raise_error
+    end
+
+    it 'accepts the name from the ENV variables' do
+      ENV['APP_NAME'] = 'locomotive_new'
+      lambda do
+        Locomotive::Heroku.app_name.should == 'locomotive_new'
+      end.should_not raise_error
+      ENV.delete('APP_NAME')
+    end
+
+  end
 
 end
 
