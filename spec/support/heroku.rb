@@ -1,0 +1,1 @@
+ENV['MOCK_HEROKU'] = '1'

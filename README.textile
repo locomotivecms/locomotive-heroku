@@ -1,0 +1,48 @@
+h1. Heroku extension for LocomotiveCMS
+
+This extension allows LocomotiveCMS to run on heroku
+
+h2. Requirements
+
+* Heroku gem
+* Heroku app
+* Heroku API key
+* LocomotiveCMS engine
+
+h2. Installation
+
+Inside your LocomotiveCMS application, open your **Gemfile** file and insert the following line after the one referencing LocomotiveCMS
+
+bc. gem 'locomotive_heroku', :require => 'locomotive/heroku'
+
+h2. Configuration
+
+Then, you have two way to let Heroku know about your API key and your application name:
+
+1. Modify your Locomotive config file (**config/locomotive.rb**)
+
+bc. config.heroku = { :api_key => '<YOUR HEROKU API KEY>', :app_name => '<MY HEROKU APP NAME>' }
+
+2. Pass the API key as an Heroku env variable
+
+Open your terminal and at the root of your application on your machine,
+
+bc. heroku config:add HEROKU_API_KEY=<YOUR HEROKU API KEY>
+
+h2. Storage: Amazon S3
+
+Since Heroku disables writing on their disk, we have to use Amazon S3 or any storage providers as long as they are supported by Carrierwave. In the following example, we will use Amazon S3 which is by far the most known/used.
+
+Open your terminal and at the root of your application on your machine,
+
+bc.. heroku config:add S3_KEY_ID=<your s3 key id>
+heroku config:add S3_SECRET_KEY=<your s3 secret key>
+heroku config:add S3_BUCKET=<your s3 bucket name>
+
+p. Note: If you plan to use another storage provider, do not forget to modify the **config/carrierwave.rb** file accordingly.
+
+h2. Contact
+
+Feel free to contact me at didier at nocoffee dot fr.
+
+Copyright (c) 2012 NoCoffee, released under the MIT license

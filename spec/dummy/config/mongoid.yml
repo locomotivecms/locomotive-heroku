@@ -1,0 +1,16 @@
+defaults: &defaults
+  host: localhost
+  port: 27017
+  # slaves:
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019
+
+development:
+  <<: *defaults
+  database: locomotive_heroku_dev
+
+test:
+  <<: *defaults
+  database: locomotive_heroku_test
