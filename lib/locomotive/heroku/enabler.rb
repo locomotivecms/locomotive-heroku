@@ -1,7 +1,7 @@
 module Locomotive
 
   def self.enable_heroku
-    Locomotive.config.domain = 'heroku.com' unless Locomotive.config.multi_sites?
+    Locomotive.config.domain = 'herokuapp.com' unless Locomotive.config.multi_sites?
 
     # we can manage domains within Heroku no matter what the value of the multi_sites option is
     Locomotive.config.manage_domains    = true
