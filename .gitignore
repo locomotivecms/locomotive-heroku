@@ -1,4 +1,4 @@
 .bundle/
 log/*.log
 pkg/
-spec/dummy/log/*.log
+/spec/dummy/log/*.log
