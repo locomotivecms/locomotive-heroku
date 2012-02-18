@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Heroku core' do
 
   before(:each) do
-    Locomotive.config.heroku = {}
+    Locomotive.config.hosting = {}
     reset_config
   end
 
@@ -20,7 +20,7 @@ describe 'Heroku core' do
     end
 
     it 'accepts the API key from the locomotive config file' do
-      Locomotive.config.heroku = { :api_key => '12345' }
+      Locomotive.config.hosting = { :api_key => '12345' }
       lambda do
         Locomotive::Heroku.connection
       end.should_not raise_error
@@ -45,7 +45,7 @@ describe 'Heroku core' do
     end
 
     it 'accepts the name from the locomotive config file' do
-      Locomotive.config.heroku = { :app_name => 'locomotive' }
+      Locomotive.config.hosting = { :app_name => 'locomotive' }
       lambda do
         Locomotive::Heroku.app_name.should == 'locomotive'
       end.should_not raise_error

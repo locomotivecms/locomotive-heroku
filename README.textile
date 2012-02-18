@@ -20,12 +20,11 @@ h2. Configuration
 Then, you have to let Heroku know about your API key and your application name
 Modify your Locomotive config file (**config/locomotive.rb**)
 
-bc.. config.hosting = :heroku
-config.heroku = { :api_key => '<YOUR HEROKU API KEY>', :app_name => '<MY HEROKU APP NAME>' }
+bc. config.hosting = { :target => :heroku, :api_key => '<YOUR HEROKU API KEY>', :app_name => '<MY HEROKU APP NAME>' }
 
 h2. Storage: Amazon S3
 
-Since Heroku disables writing on their disk, we have to use Amazon S3 or any storage providers as long as they are supported by Carrierwave. In the following example, we will use Amazon S3 which is by far the most known/used.
+Because Heroku disables writing on their disk, we have to use Amazon S3 or any storage providers as long as they are supported by Carrierwave. In the following example, we will use Amazon S3 which is by far the most known/used.
 
 Open your terminal and at the root of your application on your machine,
 

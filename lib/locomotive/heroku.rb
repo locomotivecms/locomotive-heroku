@@ -29,17 +29,17 @@ module Locomotive
       def connection
         return @connection if @connection
 
-        raise 'The Heroku API key is mandatory' if ENV['HEROKU_API_KEY'].blank? && Locomotive.config.heroku[:api_key].blank?
+        raise 'The Heroku API key is mandatory' if ENV['HEROKU_API_KEY'].blank? && Locomotive.config.hosting[:api_key].blank?
 
-        @connection = ::Heroku::API.new(:api_key => ENV['HEROKU_API_KEY'] || Locomotive.config.heroku[:api_key])
+        @connection = ::Heroku::API.new(:api_key => ENV['HEROKU_API_KEY'] || Locomotive.config.hosting[:api_key])
       end
 
       def app_name
         return @app_name if @app_name
 
-        raise 'The Heroku application name is mandatory' if ENV['APP_NAME'].blank? && Locomotive.config.heroku[:app_name].blank?
+        raise 'The Heroku application name is mandatory' if ENV['APP_NAME'].blank? && Locomotive.config.hosting[:app_name].blank?
 
-        @app_name = Locomotive.config.heroku[:app_name] || ENV['APP_NAME']
+        @app_name = Locomotive.config.hosting[:app_name] || ENV['APP_NAME']
       end
     end
 

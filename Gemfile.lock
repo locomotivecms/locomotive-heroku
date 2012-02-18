@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    locomotive_heroku (0.0.1)
+    locomotive-heroku (0.0.1)
       heroku-api (~> 0.1.0)
       rails (~> 3.2.1)
 
@@ -256,8 +256,8 @@ DEPENDENCIES
   compass-rails
   database_cleaner
   factory_girl_rails (~> 1.6.0)
+  locomotive-heroku!
   locomotive_cms!
-  locomotive_heroku!
   mocha (= 0.9.12)
   rspec-rails (~> 2.8.0)
   shoulda-matchers
