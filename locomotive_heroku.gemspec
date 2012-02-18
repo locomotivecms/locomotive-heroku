@@ -5,7 +5,7 @@ require 'locomotive/heroku/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = 'locomotive_heroku'
+  s.name        = 'locomotive-heroku'
   s.version     = Locomotive::Heroku::VERSION
   s.authors     = ['Didier Lafforgue']
   s.email       = ['didier@nocoffee.fr']
