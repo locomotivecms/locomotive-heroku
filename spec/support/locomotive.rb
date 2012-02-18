@@ -4,5 +4,7 @@ Locomotive.configure do |config|
     multi_sites.reserved_subdomains = %w(www admin locomotive email blog webmail mail support help site sites)
   end
 
+  config.hosting = :heroku
+
   config.enable_logs = true
 end

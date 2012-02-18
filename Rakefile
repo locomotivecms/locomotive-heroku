@@ -25,3 +25,6 @@ Bundler::GemHelper.install_tasks
 # === RSpec ===
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
+
+# === Default task ===
+task :default => :spec

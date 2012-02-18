@@ -1,10 +1,10 @@
 puts "\t...loading heroku extension"
 
-# require 'locomotive/config'
 require 'heroku-api'
 require 'locomotive/heroku/patches'
-# require 'locomotive/heroku/custom_domain'
-# require 'locomotive/heroku/first_installation'
+require 'locomotive/heroku/custom_domain'
+require 'locomotive/heroku/first_installation'
+require 'locomotive/heroku/enabler'
 
 module Locomotive
   module Heroku
@@ -14,7 +14,13 @@ module Locomotive
 
       def domains
         if @domains.nil?
-          @domains = self.connection.get_domains(self.app_name)
+          response = self.connection.get_domains(self.app_name)
+
+          if response.status == 200
+            @domains = response.body.map { |h| h['domain'] }.reject { |n| n.starts_with?('*') }
+          else
+            @domains = []
+          end
         else
           @domains
         end
@@ -25,7 +31,7 @@ module Locomotive
 
         raise 'The Heroku API key is mandatory' if ENV['HEROKU_API_KEY'].blank? && Locomotive.config.heroku[:api_key].blank?
 
-        @connection = ::Heroku::API.new(:api_key => ENV['HEROKU_API_KEY'] || Locomotive.config.heroku[:api_key], :mock => ENV['MOCK_HEROKU'].present?)
+        @connection = ::Heroku::API.new(:api_key => ENV['HEROKU_API_KEY'] || Locomotive.config.heroku[:api_key])
       end
 
       def app_name
@@ -33,34 +39,24 @@ module Locomotive
 
         raise 'The Heroku application name is mandatory' if ENV['APP_NAME'].blank? && Locomotive.config.heroku[:app_name].blank?
 
-        @app_name = Locomotive.config.heroku[:app_name] ||  ENV['APP_NAME']
+        @app_name = Locomotive.config.heroku[:app_name] || ENV['APP_NAME']
       end
     end
 
     def self.add_domain(name)
       Locomotive.log "[add heroku domain] #{name}"
-      self.connection.post_domains(self.app_name, name)
-      self.domains << name
+
+      response = self.connection.post_domain(self.app_name, name)
+
+      if response.status >= 200 && response.status < 300
+        self.domains << name
+      end
     end
 
     def self.remove_domain(name)
       Locomotive.log "[remove heroku domain] #{name}"
       self.connection.delete_domain(self.app_name, name)
       self.domains.delete(name)
-    end
-
-    def self.enable
-      Locomotive.config.domain = 'heroku.com' unless Locomotive.config.multi_sites?
-
-      # rack_cache: disabled because of Varnish
-      Locomotive.config.rack_cache = false
-
-      # hooks
-      Locomotive::Site.send :include, Locomotive::Heroku::CustomDomain
-      Locomotive::Site.send :include, Locomotive::Heroku::FirstInstallation
-
-      # initialize the API connection
-      self.connection
     end
 
   end
