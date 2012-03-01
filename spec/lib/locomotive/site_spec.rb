@@ -42,8 +42,17 @@ describe 'Site enhanced by Heroku' do
       @site.save
     end
 
+    it 'does not remove domains' do
+      Locomotive::Heroku.stubs(:domains).returns(['blabla.fr'])
+      @site.domains = ['www.nocoffee.fr', 'nocoffee.fr']
+      Locomotive::Heroku.expects(:remove_domain).with('www.nocoffee.fr').never
+      Locomotive::Heroku.expects(:remove_domain).with('blabla.fr').never
+      @site.save
+    end
+
     it 'removes useless domains' do
       Locomotive::Heroku.stubs(:domains).returns(['www.nocoffee.fr', 'nocoffee.fr', 'blabla.fr'])
+      @site.stubs(:domains_was).returns(['www.nocoffee.fr', 'nocoffee.fr', 'blabla.fr'])
       @site.domains = ['www.nocoffee.fr', 'nocoffee.fr']
       Locomotive::Heroku.expects(:add_domain).never
       Locomotive::Heroku.expects(:remove_domain).with('blabla.fr')
@@ -52,6 +61,7 @@ describe 'Site enhanced by Heroku' do
 
     it 'both adds and removes domains' do
       Locomotive::Heroku.stubs(:domains).returns(['www.nocoffee.fr', 'nocoffee.fr', 'blabla.fr'])
+      @site.stubs(:domains_was).returns(['www.nocoffee.fr', 'nocoffee.fr', 'blabla.fr'])
       @site.domains = ['www.nocoffee.fr', 'nocoffee.fr', 'helloworld.fr']
       Locomotive::Heroku.expects(:add_domain).with('nocoffee.fr').never
       Locomotive::Heroku.expects(:add_domain).with('helloworld.fr')
