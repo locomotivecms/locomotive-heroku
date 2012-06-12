@@ -1,5 +1,3 @@
-puts "\t...loading heroku extension"
-
 require 'heroku-api'
 require 'locomotive/heroku/patches'
 require 'locomotive/heroku/custom_domain'
