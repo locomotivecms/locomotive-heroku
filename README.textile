@@ -13,7 +13,7 @@ h2. Installation
 
 Inside your LocomotiveCMS application, open your **Gemfile** file and insert the following line after the one referencing LocomotiveCMS
 
-bc. gem 'locomotive_heroku', :require => 'locomotive/heroku'
+bc. gem 'locomotive-heroku', :require => 'locomotive/heroku'
 
 h2. Configuration
 
