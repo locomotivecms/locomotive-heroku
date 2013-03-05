@@ -6,7 +6,7 @@ source "http://rubygems.org"
 gemspec
 
 group :development, :test do
-  # gem 'locomotive_cms', :path => '../../engine', :require => 'locomotive/engine'
+#  gem 'locomotive_cms', :path => '../../engine', :require => 'locomotive/engine'
 
   gem 'rspec-rails', '~> 2.8.0'
   gem 'shoulda-matchers'
