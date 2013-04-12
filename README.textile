@@ -18,7 +18,7 @@ bc. gem 'locomotive_heroku', :require => 'locomotive/heroku'
 h2. Configuration
 
 Then, you have to let Heroku know about your API key and your application name
-Modify your Locomotive config file (**config/locomotive.rb**)
+Modify your Locomotive config file (**config/initializers/locomotive.rb**)
 
 bc. config.hosting = { :target => :heroku, :api_key => '<YOUR HEROKU API KEY>', :app_name => '<MY HEROKU APP NAME>' }
 
