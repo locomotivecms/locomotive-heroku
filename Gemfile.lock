@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    locomotive-heroku (0.0.2)
+    locomotive-heroku (0.1.0)
       heroku-api (~> 0.3.12)
       rails (~> 3.2.13)
 
