@@ -8,11 +8,12 @@ gemspec
 group :development, :test do
   gem 'locomotive_cms', :path => '../../engine', :require => 'locomotive/engine'
 
-  gem 'rspec-rails', '~> 2.8.0'
+  gem 'rspec-rails', '~> 2.13.0' # In order to have rspec tasks and generators
+
   gem 'shoulda-matchers'
 
-  gem 'factory_girl_rails', '~> 1.6.0'
-  gem 'mocha', '0.9.12' # :git => 'git://github.com/floehopper/mocha.git'
+  gem 'factory_girl_rails', '~> 4.2.1'
+  gem 'mocha', '~> 0.13.0', require: false
 
   gem 'database_cleaner'
 end
