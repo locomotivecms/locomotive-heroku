@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
   s.test_files = Dir['{test, spec}/**/*']
 
   s.add_dependency 'rails', '~> 3.2.13'
-  s.add_dependency 'heroku-api', '~> 0.3.12'
+  s.add_dependency 'heroku-api', '~> 0.3.23'
 end
